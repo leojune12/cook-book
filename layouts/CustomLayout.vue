@@ -61,16 +61,18 @@
         class="font-weight-bold display-1 pl-0"
       >
         <NuxtLink to="/">
-          <v-icon
-            color="amber darken-3"
-            large
-            class="mt-n1"
-          >
-            mdi-chef-hat
-          </v-icon>
           <span
             class="green--text"
-          >Cookbook</span>
+          >
+            <v-icon
+              color="amber darken-3"
+              large
+              class="mt-n1 hat-logo"
+            >
+              mdi-chef-hat
+            </v-icon>
+            Cookbook
+          </span>
         </NuxtLink>
       </v-toolbar-title>
       <v-spacer />
@@ -87,29 +89,9 @@
         dense
         class="mr-2"
       />
-      <!--<template
-          v-slot:extension
-          v-if="$vuetify.breakpoint.mdAndUp"
-      >
-          <v-tabs
-              color="amber darken-3"
-              :align-with-title="$vuetify.breakpoint.mdAndUp"
-              :show-arrows="!$vuetify.breakpoint.mdAndUp"
-          >
-              <v-tab v-for="link in headerLinks" :key="link.to" :to="link.to">{{ link.name }}</v-tab>
-          </v-tabs>
-      </template>-->
       <div
         v-if="$vuetify.breakpoint.mdAndUp"
       >
-        <!--<router-link
-          v-for="link in headerLinks"
-          :key="link.to"
-          :to="link.to"
-          class="py-3 mx-2 text-button d-inline"
-        >
-          {{ link.name }}
-        </router-link>-->
         <NuxtLink
           v-for="link in headerLinks"
           :key="link.to"
@@ -233,4 +215,14 @@ li {
   color: #FF8F00 !important;
 }
 
+.hat-logo {
+  transform: rotateY(560deg);
+  animation: turn 3.5s ease-out forwards 1s;
+}
+
+@keyframes turn {
+  100% {
+    transform: rotateY(0deg);
+  }
+}
 </style>
