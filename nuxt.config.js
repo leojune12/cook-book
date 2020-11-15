@@ -10,11 +10,11 @@ export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     titleTemplate: 'Cookbook | %s',
-    title: 'Home',
+    title: 'A simple recipe book',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' }
+      { hid: 'description', name: 'description', content: 'A simple recipe book made with nuxt from www.themealdb.com API' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon_.ico' }
