@@ -5,7 +5,6 @@
       light
       color="white"
       elevation="0"
-      style="border-bottom: 1px solid lightgray !important;"
     >
       <v-dialog
         v-model="linksDialog"
@@ -22,6 +21,9 @@
           />
         </template>
         <v-card
+          v-touch="{
+            left: () => linksDialog = false,
+          }"
           tile
         >
           <v-toolbar
@@ -46,10 +48,10 @@
               tag="li"
               class="py-3 text-center text-h5"
             >
-            <span
-              class="d-block"
-              @click="closeLinksDialog"
-            >{{ link.name }}</span>
+              <span
+                class="d-block"
+                @click="closeLinksDialog"
+              >{{ link.name }}</span>
             </router-link>
           </ul>
         </v-card>
@@ -61,18 +63,18 @@
         class="font-weight-bold display-1 pl-0"
       >
         <NuxtLink to="/">
-        <span
-          class="green--text"
-        >
-          <v-icon
-            color="amber darken-3"
-            large
-            class="mt-n1 hat-logo"
+          <span
+            class="green--text"
           >
-            mdi-chef-hat
-          </v-icon>
-          Cookbook
-        </span>
+            <v-icon
+              color="amber darken-3"
+              large
+              class="mt-n1 hat-logo"
+            >
+              mdi-chef-hat
+            </v-icon>
+            Cookbook
+          </span>
         </NuxtLink>
       </v-toolbar-title>
       <v-spacer />
@@ -102,51 +104,58 @@
         </NuxtLink>
       </div>
       <v-dialog
-          v-model="searchDialog"
-          light
-          fullscreen
-          hide-overlay
-          transition="slide-x-reverse-transition"
-        >
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              v-if="!$vuetify.breakpoint.mdAndUp"
-              icon
-              v-bind="attrs"
-              v-on="on"
-            >
-              <v-icon>mdi-magnify</v-icon>
-            </v-btn>
-          </template>
-          <v-card
-            tile
+        v-model="searchDialog"
+        light
+        fullscreen
+        hide-overlay
+        transition="slide-x-reverse-transition"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            v-if="!$vuetify.breakpoint.mdAndUp"
+            icon
+            v-bind="attrs"
+            v-on="on"
           >
-            <v-toolbar
-              elevation="0"
-              class="py-2"
+            <v-icon>mdi-magnify</v-icon>
+          </v-btn>
+        </template>
+        <v-card
+          v-touch="{
+            right: () => searchDialog = false,
+          }"
+          tile
+        >
+          <v-toolbar
+            elevation="0"
+            class="py-2"
+          >
+            <v-text-field
+              v-model="search"
+              append-icon="mdi-magnify"
+              label="Search Recipe"
+              single-line
+              hide-details
+              outlined
+              dense
+              autofocus
+              color="amber darken-3"
+            />
+            <v-btn
+              icon
+              @click="searchDialog = false"
             >
-              <v-text-field
-                v-model="search"
-                append-icon="mdi-magnify"
-                label="Search Recipe"
-                single-line
-                hide-details
-                outlined
-                dense
-                autofocus
-                color="amber darken-3"
-              />
-              <v-btn
-                icon
-                @click="searchDialog = false"
-              >
-                <v-icon>mdi-close</v-icon>
-              </v-btn>
-            </v-toolbar>
-          </v-card>
-        </v-dialog>
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </v-toolbar>
+        </v-card>
+      </v-dialog>
     </v-app-bar>
     <v-main
+      v-touch="{
+        left: () => searchDialog = true,
+        right: () => linksDialog = true,
+      }"
       style="background-color: #ffffff"
     >
       <v-container
