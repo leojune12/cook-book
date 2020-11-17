@@ -83,7 +83,7 @@
       md="10"
     >
       <div
-        class="text-center px-3"
+        class="text-center px-3 text-justify"
       >
         <v-img
           class="mx-auto mb-12 mt-8"
@@ -98,7 +98,7 @@
         <div
           class="grey--text text--darken-2 text-md-h5 text-h6"
         >
-          For breakfast, launch and dinner. With over 20 international cuisines to choose from.
+          For breakfast, lunch and dinner. With over 20 international cuisines to choose from.
         </div>
       </div>
     </v-col>

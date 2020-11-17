@@ -21,9 +21,6 @@
           />
         </template>
         <v-card
-          v-touch="{
-            left: () => linksDialog = false,
-          }"
           tile
         >
           <v-toolbar
@@ -121,9 +118,6 @@
           </v-btn>
         </template>
         <v-card
-          v-touch="{
-            right: () => searchDialog = false,
-          }"
           tile
         >
           <v-toolbar
@@ -152,10 +146,6 @@
       </v-dialog>
     </v-app-bar>
     <v-main
-      v-touch="{
-        left: () => searchDialog = true,
-        right: () => linksDialog = true,
-      }"
       style="background-color: #ffffff"
     >
       <v-container
