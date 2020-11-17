@@ -4,12 +4,12 @@
       cols="12"
       md="8 offset-md-2"
     >
-      <v-alert v-if="error.statusCode === 404" type="error"  text>
+      <v-alert v-if="error.statusCode === 404" type="error" outlined dense>
         {{ pageNotFound }}
       </v-alert>
-      <h1 v-else class="green--text">
+      <v-alert v-else type="error" outlined dense>
         {{ otherError }}
-      </h1>
+      </v-alert>
       <NuxtLink to="/" style="text-decoration: none">
         Home page
       </NuxtLink>

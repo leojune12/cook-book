@@ -150,7 +150,6 @@
     >
       <v-container
         fluid
-        class="mx-0 pa-0"
       >
         <nuxt keep-alive />
       </v-container>

@@ -83,10 +83,10 @@
       md="10"
     >
       <div
-        class="text-center px-3 text-justify"
+        class="text-center px-3"
       >
         <v-img
-          class="mx-auto mb-12 mt-8"
+          class="mx-auto mb-12"
           width="400"
           src="/images/ingredients.png"
         />
