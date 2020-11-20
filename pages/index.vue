@@ -74,49 +74,52 @@
       </v-card>
     </v-col>
   </v-row>-->
-  <v-row
-    justify="center"
-    align="center"
-  >
-    <v-col
-      cols="12"
-      md="10"
+  <div>
+    <v-row
+      justify="center"
+      align="center"
     >
-      <div
-        class="text-center px-3"
+      <v-col
+        cols="12"
+        md="10"
       >
-        <v-img
-          class="mx-auto mb-12"
-          width="400"
-          src="/images/ingredients.png"
-        />
         <div
-          class="grey--text text--darken-4 text-md-h3 text-h4 font-weight-bold mb-12"
+          class="text-center px-3"
         >
-          Discover classic and modern recipes
+          <v-img
+            class="mx-auto mb-6"
+            width="400"
+            src="/images/ingredients.png"
+          />
+          <div
+            class="grey--text text--darken-4 text-md-h3 text-h4 font-weight-bold mb-6"
+          >
+            Discover classic and modern recipes
+          </div>
+          <div
+            class="grey--text text--darken-2 text-md-h5 text-h6"
+          >
+            For breakfast, lunch and dinner. With over 20 international cuisines to choose from.
+          </div>
         </div>
-        <div
-          class="grey--text text--darken-2 text-md-h5 text-h6"
-        >
-          For breakfast, lunch and dinner. With over 20 international cuisines to choose from.
-        </div>
-      </div>
-    </v-col>
-  </v-row>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <BrowseByButtons />
+      </v-col>
+    </v-row>
+  </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
+import BrowseByButtons from '@/components/BrowseByButtons'
 
 export default {
   layout: 'CustomLayout',
 
   components: {
-    // eslint-disable-next-line vue/no-unused-components
-    Logo,
-    // eslint-disable-next-line vue/no-unused-components
-    VuetifyLogo
+    BrowseByButtons
   }
 }
 </script>

@@ -79,7 +79,7 @@
         v-if="$vuetify.breakpoint.mdAndUp"
         v-model="search"
         append-icon="mdi-magnify"
-        label="Search Recipe"
+        :label="searchPlaceholder"
         single-line
         hide-details
         color="amber darken-3"
@@ -127,7 +127,7 @@
             <v-text-field
               v-model="search"
               append-icon="mdi-magnify"
-              label="Search Recipe"
+              :label="searchPlaceholder"
               single-line
               hide-details
               outlined
@@ -148,9 +148,7 @@
     <v-main
       style="background-color: #ffffff"
     >
-      <v-container
-        fluid
-      >
+      <v-container>
         <nuxt keep-alive />
       </v-container>
     </v-main>
@@ -180,6 +178,7 @@ export default {
       }
     ],
     search: '',
+    searchPlaceholder: 'Search Recipe by name',
     searchDialog: false,
     linksDialog: false
   }),

@@ -9,12 +9,12 @@ export default {
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    titleTemplate: 'Cookbook | %s',
-    title: 'A simple recipe book',
+    titleTemplate: '%s | Cookbook',
+    title: 'A simple recipe book created by Leo June with API from www.themealdb.com',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'A simple recipe book made with nuxt from www.themealdb.com API' }
+      { hid: 'description', name: 'description', content: 'Created using Nuxt.js which is a free and open source web application framework based on Vue.js' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon_.ico' }
@@ -83,5 +83,10 @@ export default {
     name: 'cube-grid',
     color: '#FF8F00',
     background: 'white'
+  },
+
+  loading: {
+    color: '#FF8F00',
+    height: '2px'
   }
 }
