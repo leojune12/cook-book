@@ -14,7 +14,9 @@
           <v-img
             class="mx-auto mb-6"
             width="400"
+            height="254.78px"
             src="/images/ingredients.png"
+            lazy-src="/images/ingredients.png"
           />
           <div
             class="grey--text text--darken-4 text-md-h3 text-h4 font-weight-bold mb-6"
