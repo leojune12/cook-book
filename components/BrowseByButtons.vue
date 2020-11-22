@@ -6,8 +6,9 @@
         outlined
         color="green darken-3"
         rounded
-        large
+        x-large
         :block="!$vuetify.breakpoint.mdAndUp"
+        width="320"
       >
         Browse By Category
       </v-btn>
@@ -18,8 +19,9 @@
         outlined
         color="green darken-3"
         rounded
-        large
+        x-large
         :block="!$vuetify.breakpoint.mdAndUp"
+        width="320"
       >
         Browse By Cuisine
       </v-btn>
