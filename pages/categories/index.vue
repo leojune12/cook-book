@@ -6,19 +6,24 @@
     >
       <v-col
         cols="12"
-        md="10"
+        md="8"
       >
-        <div class="grey--text text--darken-4 ml-md-16 ml-4">
+        <div
+          v-if="categories.length"
+          class="grey--text text--darken-4"
+        >
           Select Category
         </div>
         <v-slide-group
           v-model="slideGroup"
-          class="pa-4"
+          class="py-4"
           mandatory
           center-active
           :show-arrows="$vuetify.breakpoint.mdAndUp"
           light
-          @change="activateCategory(slideGroup+1)"
+          prev-icon="mdi-chevron-left-circle-outline"
+          next-icon="mdi-chevron-right-circle-outline"
+          @change="selectCategory(slideGroup+1)"
         >
           <v-slide-item
             v-for="category in categories"
@@ -57,12 +62,17 @@
         </v-slide-group>
       </v-col>
     </v-row>
+    <CategoryMeals :category="selectedCategory.strCategory" />
   </div>
 </template>
 
 <script>
+import CategoryMeals from '@/components/CategoryMeals'
 export default {
   layout: 'CustomLayout',
+  components: {
+    CategoryMeals
+  },
   async fetch () {
     this.categories = (await this.$axios.$get('https://www.themealdb.com/api/json/v1/1/categories.php')).categories
     // eslint-disable-next-line no-console
@@ -72,11 +82,21 @@ export default {
     return {
       slideGroup: 0,
       categories: [],
-      lastActiveCategoryId: 1
+      lastActiveCategoryId: 1,
+      selectedCategory: {
+        strCategory: 'Beef'
+      },
+      idSelected: null
     }
   },
   methods: {
-    activateCategory (id) {
+    // callback function
+    filterCategories (category) {
+      return category.idCategory.toString() === this.idSelected.toString()
+    },
+    selectCategory (id) {
+      this.idSelected = id
+      this.selectedCategory = this.categories.find(this.filterCategories)
       document.getElementById('hr-' + id).classList.add('hr-selected')
       if (this.lastActiveCategoryId !== null) {
         document.getElementById('hr-' + this.lastActiveCategoryId).classList.remove('hr-selected')
