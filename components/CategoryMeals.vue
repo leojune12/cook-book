@@ -11,7 +11,10 @@
         v-if="meals.length"
         class="grey--text text--darken-4"
       >
-        {{ category }} Dishes ({{ meals.length }})
+        <span>{{ category }} Dishes</span>
+        <span>
+          ({{ meals.length }} item<span v-if="meals.length > 1">s</span>)
+        </span>
       </div>
       <v-row>
         <v-col
@@ -24,7 +27,7 @@
             to="/"
           >
             <v-card
-              color="amber darken-3"
+              color="grey lighten-2"
             >
               <v-img
                 class="align-end rounded"
