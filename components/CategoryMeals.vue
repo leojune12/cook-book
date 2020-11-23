@@ -24,7 +24,7 @@
           md="4"
         >
           <NuxtLink
-            to="/"
+            :to="'/meal/' + meal.idMeal"
           >
             <v-card
               color="grey lighten-2"
