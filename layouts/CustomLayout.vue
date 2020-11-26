@@ -61,7 +61,7 @@
       >
         <NuxtLink to="/">
           <span
-            class="green--text"
+            style="color: #009135"
           >
             <v-icon
               color="amber darken-3"
@@ -69,8 +69,7 @@
               class="mt-n1 hat-logo"
             >
               mdi-chef-hat
-            </v-icon>
-            Cookbook
+            </v-icon>Cookbook
           </span>
         </NuxtLink>
       </v-toolbar-title>

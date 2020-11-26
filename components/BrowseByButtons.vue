@@ -3,9 +3,8 @@
     <NuxtLink to="/categories">
       <v-btn
         class="mr-md-3 mb-3 mb-md-0 px-md-15"
-        outlined
-        color="green darken-3"
-        rounded
+        color="#009135"
+        dark
         x-large
         :block="!$vuetify.breakpoint.mdAndUp"
         width="320"
@@ -16,9 +15,8 @@
     <NuxtLink to="/cuisines">
       <v-btn
         class="px-md-15"
-        outlined
-        color="green darken-3"
-        rounded
+        dark
+        color="#009135"
         x-large
         :block="!$vuetify.breakpoint.mdAndUp"
         width="320"

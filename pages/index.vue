@@ -19,14 +19,16 @@
             lazy-src="/images/ingredients.png"
           />
           <div
-            class="grey--text text--darken-4 text-md-h3 text-h4 font-weight-bold mb-6"
+            class="text-md-h3 text-h4 font-weight-bold mb-6"
+            style="color: #005A00;"
           >
             Discover classic and modern recipes
           </div>
           <div
-            class="grey--text text--darken-2 text-md-h5 text-h6"
+            class="text-md-h5 text-h6"
+            style="color: #00751B;"
           >
-            For breakfast, lunch and dinner. With over 20 international cuisines to choose from.
+            Explore more than 250 dishes from over 20 international cuisines.
           </div>
         </div>
       </v-col>
