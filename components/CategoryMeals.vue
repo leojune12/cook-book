@@ -26,9 +26,7 @@
           <NuxtLink
             :to="'/meal/' + meal.idMeal"
           >
-            <v-card
-              color="grey lighten-2"
-            >
+            <v-card>
               <v-img
                 class="align-end rounded"
                 :src="meal.strMealThumb"
