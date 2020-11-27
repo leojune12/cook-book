@@ -22,13 +22,13 @@
             class="text-md-h3 text-h4 font-weight-bold mb-6"
             style="color: #005A00;"
           >
-            Discover classic and modern recipes
+            Discover traditional and modern recipes
           </div>
           <div
             class="text-md-h5 text-h6"
             style="color: #00751B;"
           >
-            Explore more than 250 dishes from over 20 international cuisines.
+            Explore more than 250 dishes from over 20 international cuisines
           </div>
         </div>
       </v-col>

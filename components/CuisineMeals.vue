@@ -11,7 +11,7 @@
         v-if="meals.length"
         class="grey--text text--darken-4"
       >
-        <span>{{ category }} Dishes</span>
+        <span>{{ cuisine }} Dishes</span>
         <span>
           ({{ meals.length }} item<span v-if="meals.length > 1">s</span>)
         </span>
@@ -50,31 +50,30 @@
     </v-col>
   </v-row>
 </template>
-
 <script>
 export default {
-  name: 'CategoryMeals',
+  name: 'CuisineMeals',
   props: {
     // eslint-disable-next-line vue/require-default-prop
-    category: String
+    cuisine: String
   },
   async fetch () {
-    this.meals = (await this.$axios.get('https://www.themealdb.com/api/json/v1/1/filter.php?c=' + this.defaultCategory)).data.meals
+    this.meals = (await this.$axios.get('https://www.themealdb.com/api/json/v1/1/filter.php?a=' + this.defaultCuisine)).data.meals
   },
   data () {
     return {
       meals: [],
-      defaultCategory: 'beef'
+      defaultCuisine: 'American'
     }
   },
   watch: {
-    category () {
+    cuisine () {
       this.fetchMeals()
     }
   },
   methods: {
     async fetchMeals () {
-      this.meals = (await this.$axios.get('https://www.themealdb.com/api/json/v1/1/filter.php?c=' + this.category)).data.meals
+      this.meals = (await this.$axios.get('https://www.themealdb.com/api/json/v1/1/filter.php?a=' + this.cuisine)).data.meals
     }
   }
 }

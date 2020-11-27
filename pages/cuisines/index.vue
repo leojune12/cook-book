@@ -9,10 +9,10 @@
         md="8"
       >
         <div
-          v-if="categories.length"
+          v-if="cuisines.length"
           class="grey--text text--darken-4"
         >
-          Select Category
+          Select Cuisine
         </div>
         <v-slide-group
           v-model="slideGroup"
@@ -23,11 +23,11 @@
           light
           prev-icon="mdi-chevron-left-circle-outline"
           next-icon="mdi-chevron-right-circle-outline"
-          @change="selectCategory(slideGroup+1)"
+          @change="selectCuisine(slideGroup)"
         >
           <v-slide-item
-            v-for="category in categories"
-            :key="category.idCategory"
+            v-for="cuisine in cuisines"
+            :key="cuisine.strArea"
             v-slot="{ active, toggle }"
             v-ripple
           >
@@ -41,8 +41,8 @@
                 color="grey lighten-3"
               >
                 <v-img
-                  :src="category.strCategoryThumb"
-                  :alt="category.strCategory"
+                  :src="'/images/flags/' + cuisine.strArea + '.png'"
+                  :alt="cuisine.strArea"
                 >
                   <template v-slot:placeholder>
                     <v-skeleton-loader
@@ -54,45 +54,46 @@
               <span
                 class="pl-1 pr-3"
               >
-                {{ category.strCategory }}
+                {{ cuisine.strArea }}
               </span>
             </span>
           </v-slide-item>
         </v-slide-group>
       </v-col>
     </v-row>
-    <CategoryMeals :category="selectedCategory.strCategory" />
+    <CuisineMeals :cuisine="selectedCuisine.strArea" />
   </div>
 </template>
 
 <script>
-import CategoryMeals from '@/components/CategoryMeals'
+import CuisineMeals from '../../components/CuisineMeals'
 export default {
   layout: 'CustomLayout',
+  name: 'Index',
   components: {
-    CategoryMeals
+    CuisineMeals
   },
   async fetch () {
-    this.categories = (await this.$axios.$get('https://www.themealdb.com/api/json/v1/1/categories.php')).categories
+    this.cuisines = (await this.$axios.$get('https://www.themealdb.com/api/json/v1/1/list.php?a=list')).meals
   },
   data () {
     return {
       slideGroup: 0,
-      categories: [],
-      selectedCategory: {
-        strCategory: 'Beef'
+      cuisines: [],
+      selectedCuisine: {
+        strArea: 'American'
       },
-      idSelected: null
+      activeCuisine: null
     }
   },
   methods: {
     // callback function
-    filterCategories (category) {
-      return category.idCategory.toString() === this.idSelected.toString()
+    filterCuisine (cuisine) {
+      return cuisine.strArea.toString() === this.activeCuisine.strArea.toString()
     },
-    selectCategory (id) {
-      this.idSelected = id
-      this.selectedCategory = this.categories.find(this.filterCategories)
+    selectCuisine (id) {
+      this.activeCuisine = this.cuisines[id]
+      this.selectedCuisine = this.cuisines.find(this.filterCuisine)
     }
   }
 }

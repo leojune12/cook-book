@@ -4,7 +4,8 @@
       app
       light
       color="white"
-      elevate-on-scroll
+      elevation="0"
+      style="border-bottom: lightgray 1px solid !important;"
     >
       <v-dialog
         v-model="linksDialog"
