@@ -6,22 +6,39 @@
     value-attribute="strMeal"
     :list="fetchMeals"
     :max-suggestions="6"
-    :debounce="800"
-    style="width: 100% !important;"
+    :debounce="500"
+    :class="{ 'display-block':!$vuetify.breakpoint.mdAndUp }"
     @select="closeMobileSearchBar"
   >
     <v-text-field
+      v-if="$vuetify.breakpoint.mdAndUp"
+      id="search-bar"
       v-model="search"
-      append-icon="mdi-close"
       prepend-inner-icon="mdi-magnify"
       dense
-      solo
+      single-line
       outlined
       rounded
       :placeholder="searchPlaceholder"
       hide-details
       full-width
-      class="mobile-search-bar"
+      class="search-bar"
+      color="amber darken-3"
+      @click:append="toggleMobileSearchBar"
+    />
+    <v-text-field
+      v-else
+      v-model="search"
+      append-icon="mdi-close"
+      prepend-inner-icon="mdi-magnify"
+      dense
+      single-line
+      outlined
+      rounded
+      :placeholder="searchPlaceholder"
+      hide-details
+      full-width
+      class="search-bar"
       color="amber darken-3"
       @click:append="toggleMobileSearchBar"
     />
@@ -79,10 +96,14 @@ export default {
     },
     closeMobileSearchBar () {
       this.$refs.vueSimpleSuggest.hideList()
-      setTimeout(this.toggleMobileSearchBar, 500)
+      if (this.$vuetify.breakpoint.mdAndUp) {
+        document.getElementById('search-bar').blur()
+      }
+      setTimeout(this.toggleMobileSearchBar, 400)
     },
     ...mapMutations({
-      toggleMobileSearchBar: 'searchBar/toggleMobileSearchBar'
+      toggleMobileSearchBar: 'searchBar/toggleMobileSearchBar',
+      updateSearch: 'searchBar/updateSearch'
     })
   }
 }
@@ -140,4 +161,7 @@ li {
     /* Transition rule for "disengaged" element:*/
     opacity: 0;
 }
+  .display-block {
+    width: 100% !important;
+  }
 </style>

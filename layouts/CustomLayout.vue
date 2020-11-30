@@ -1,7 +1,7 @@
 <template>
   <v-app>
-    <v-app-bar
-      v-if="mobileSearchBar"
+    <!--<v-app-bar
+      v-if="!$vuetify.breakpoint.mdAndUp"
       app
       light
       color="white"
@@ -9,9 +9,8 @@
       style="border-bottom: lightgray 1px solid !important;"
     >
       <CustomVueSimpleSuggest />
-    </v-app-bar>
+    </v-app-bar>-->
     <v-app-bar
-      v-else
       app
       light
       color="white"
@@ -19,6 +18,7 @@
       style="border-bottom: lightgray 1px solid !important;"
     >
       <v-toolbar-title
+        v-if="$vuetify.breakpoint.mdAndUp || !mobileSearchBar"
         class="font-weight-bold display-1 pl-0"
       >
         <NuxtLink to="/">
@@ -35,19 +35,12 @@
           </span>
         </NuxtLink>
       </v-toolbar-title>
-      <v-spacer />
-      <v-text-field
-        v-if="$vuetify.breakpoint.mdAndUp"
-        v-model="search"
-        append-icon="mdi-magnify"
-        :label="searchPlaceholder"
-        single-line
-        hide-details
-        color="amber darken-3"
-        style="max-width: 250px;"
-        outlined
-        dense
-        class="mr-3"
+      <v-spacer
+        v-if="$vuetify.breakpoint.mdAndUp || !mobileSearchBar"
+      />
+      <CustomVueSimpleSuggest
+        v-if="$vuetify.breakpoint.mdAndUp || mobileSearchBar"
+        class="mr-md-3 mr-0"
       />
       <div
         v-if="$vuetify.breakpoint.mdAndUp"
@@ -61,85 +54,13 @@
           {{ link.name }}
         </NuxtLink>
       </div>
-      <!--<v-menu
-        v-model="searchDialog"
-        :close-on-content-click="false"
-        transition="slide-x-reverse-transition"
-        style="position: absolute !important; top: 0 !important; left: 0 !important;"
-      >
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            v-if="!$vuetify.breakpoint.mdAndUp"
-            icon
-            v-bind="attrs"
-            v-on="on"
-          >
-            <v-icon>mdi-magnify</v-icon>
-          </v-btn>
-        </template>
-        <v-card>
-          <v-text-field
-            v-model="search"
-            append-icon="mdi-magnify"
-            :label="searchPlaceholder"
-            single-line
-            hide-details
-            outlined
-            autofocus
-            color="amber darken-3"
-          />
-        </v-card>
-      </v-menu>-->
       <v-btn
-        v-if="!$vuetify.breakpoint.mdAndUp"
+        v-if="!$vuetify.breakpoint.mdAndUp && !mobileSearchBar"
         icon
         @click="toggleMobileSearchBar"
       >
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
-      <!--<v-dialog
-        v-model="searchDialog"
-        light
-        hide-overlay
-        transition="slide-x-reverse-transition"
-      >
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            v-if="!$vuetify.breakpoint.mdAndUp"
-            icon
-            v-bind="attrs"
-            v-on="on"
-          >
-            <v-icon>mdi-magnify</v-icon>
-          </v-btn>
-        </template>
-        <v-card
-          tile
-        >
-          <v-toolbar
-            elevation="0"
-            class="py-2"
-          >
-            <v-text-field
-              v-model="search"
-              append-icon="mdi-magnify"
-              :label="searchPlaceholder"
-              single-line
-              hide-details
-              outlined
-              dense
-              autofocus
-              color="amber darken-3"
-            />
-            <v-btn
-              icon
-              @click="searchDialog = false"
-            >
-              <v-icon>mdi-close</v-icon>
-            </v-btn>
-          </v-toolbar>
-        </v-card>
-      </v-dialog>-->
       <v-dialog
         v-model="linksDialog"
         light
@@ -149,9 +70,8 @@
       >
         <template v-slot:activator="{ on, attrs }">
           <v-app-bar-nav-icon
-            v-if="!$vuetify.breakpoint.mdAndUp"
+            v-if="!$vuetify.breakpoint.mdAndUp && !mobileSearchBar"
             v-bind="attrs"
-            style="position: sticky !important; z-index: 999 !important;"
             v-on="on"
           />
         </template>
