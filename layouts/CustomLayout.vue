@@ -1,62 +1,23 @@
 <template>
   <v-app>
     <v-app-bar
+      v-if="mobileSearchBar"
       app
       light
       color="white"
       elevation="0"
       style="border-bottom: lightgray 1px solid !important;"
     >
-      <v-dialog
-        v-model="linksDialog"
-        light
-        fullscreen
-        hide-overlay
-        transition="slide-x-transition"
-      >
-        <template v-slot:activator="{ on, attrs }">
-          <v-app-bar-nav-icon
-            v-if="!$vuetify.breakpoint.mdAndUp"
-            v-bind="attrs"
-            v-on="on"
-          />
-        </template>
-        <v-card
-          tile
-        >
-          <v-toolbar
-            elevation="0"
-          >
-            <v-spacer />
-            <v-btn
-              icon
-              @click="linksDialog = false"
-            >
-              <v-icon>mdi-close</v-icon>
-            </v-btn>
-          </v-toolbar>
-          <ul
-            class="pa-0"
-          >
-            <router-link
-              v-for="link in headerLinks"
-              :key="link.to"
-              v-ripple="{ class: 'warning--text' }"
-              :to="link.to"
-              tag="li"
-              class="py-3 text-center text-h5"
-            >
-              <span
-                class="d-block"
-                @click="closeLinksDialog"
-              >{{ link.name }}</span>
-            </router-link>
-          </ul>
-        </v-card>
-      </v-dialog>
-      <v-spacer
-        v-if="!$vuetify.breakpoint.mdAndUp"
-      />
+      <CustomVueSimpleSuggest />
+    </v-app-bar>
+    <v-app-bar
+      v-else
+      app
+      light
+      color="white"
+      elevation="0"
+      style="border-bottom: lightgray 1px solid !important;"
+    >
       <v-toolbar-title
         class="font-weight-bold display-1 pl-0"
       >
@@ -100,10 +61,45 @@
           {{ link.name }}
         </NuxtLink>
       </div>
-      <v-dialog
+      <!--<v-menu
+        v-model="searchDialog"
+        :close-on-content-click="false"
+        transition="slide-x-reverse-transition"
+        style="position: absolute !important; top: 0 !important; left: 0 !important;"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            v-if="!$vuetify.breakpoint.mdAndUp"
+            icon
+            v-bind="attrs"
+            v-on="on"
+          >
+            <v-icon>mdi-magnify</v-icon>
+          </v-btn>
+        </template>
+        <v-card>
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
+            :label="searchPlaceholder"
+            single-line
+            hide-details
+            outlined
+            autofocus
+            color="amber darken-3"
+          />
+        </v-card>
+      </v-menu>-->
+      <v-btn
+        v-if="!$vuetify.breakpoint.mdAndUp"
+        icon
+        @click="toggleMobileSearchBar"
+      >
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+      <!--<v-dialog
         v-model="searchDialog"
         light
-        fullscreen
         hide-overlay
         transition="slide-x-reverse-transition"
       >
@@ -143,6 +139,54 @@
             </v-btn>
           </v-toolbar>
         </v-card>
+      </v-dialog>-->
+      <v-dialog
+        v-model="linksDialog"
+        light
+        fullscreen
+        hide-overlay
+        transition="slide-x-reverse-transition"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-app-bar-nav-icon
+            v-if="!$vuetify.breakpoint.mdAndUp"
+            v-bind="attrs"
+            style="position: sticky !important; z-index: 999 !important;"
+            v-on="on"
+          />
+        </template>
+        <v-card
+          tile
+        >
+          <v-toolbar
+            elevation="0"
+          >
+            <v-spacer />
+            <v-btn
+              icon
+              @click="linksDialog = false"
+            >
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </v-toolbar>
+          <ul
+            class="pa-0"
+          >
+            <router-link
+              v-for="link in headerLinks"
+              :key="link.to"
+              v-ripple="{ class: 'warning--text' }"
+              :to="link.to"
+              tag="li"
+              class="py-3 text-center text-h5"
+            >
+              <span
+                class="d-block"
+                @click="closeLinksDialog"
+              >{{ link.name }}</span>
+            </router-link>
+          </ul>
+        </v-card>
       </v-dialog>
     </v-app-bar>
     <v-main
@@ -156,39 +200,48 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+import CustomVueSimpleSuggest from '../components/CustomVueSimpleSuggest'
 export default {
   name: 'CustomLayout',
-  data: () => ({
-    headerLinks: [
-      {
-        to: '/',
-        name: 'Home'
-      },
-      {
-        to: '/categories',
-        name: 'Categories'
-      },
-      {
-        to: '/cuisines',
-        name: 'Cuisines'
-      },
-      {
-        to: '/about',
-        name: 'About'
-      }
-    ],
-    search: '',
-    searchPlaceholder: 'Search Recipe by name',
-    searchDialog: false,
-    linksDialog: false
-  }),
+  components: {
+    CustomVueSimpleSuggest
+  },
+  data () {
+    return {
+      headerLinks: [
+        {
+          to: '/',
+          name: 'Home'
+        },
+        {
+          to: '/categories',
+          name: 'Categories'
+        },
+        {
+          to: '/cuisines',
+          name: 'Cuisines'
+        },
+        {
+          to: '/about',
+          name: 'About'
+        }
+      ],
+      linksDialog: false
+    }
+  },
+  computed: {
+    mobileSearchBar () {
+      return this.$store.state.searchBar.mobileSearchBar
+    }
+  },
   methods: {
     closeLinksDialog () {
-      setTimeout(this.close, 300)
+      setTimeout(this.linksDialog = false, 300)
     },
-    close () {
-      this.linksDialog = false
-    }
+    ...mapMutations({
+      toggleMobileSearchBar: 'searchBar/toggleMobileSearchBar'
+    })
   }
 }
 </script>

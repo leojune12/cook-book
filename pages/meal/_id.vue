@@ -110,6 +110,7 @@
   </div>
 </template>
 <script>
+import { mapMutations } from 'vuex'
 export default {
   layout: 'CustomLayout',
   name: 'Id',
@@ -126,7 +127,10 @@ export default {
   methods: {
     goBack () {
       window.history.back()
-    }
+    },
+    ...mapMutations({
+      toggleMobileSearchBar: 'searchBar/toggleMobileSearchBar'
+    })
   }
 }
 </script>
