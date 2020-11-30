@@ -5,7 +5,7 @@
     display-attribute="strMeal"
     value-attribute="strMeal"
     :list="fetchMeals"
-    :max-suggestions="6"
+    :max-suggestions="5"
     :debounce="500"
     :class="{ 'display-block':!$vuetify.breakpoint.mdAndUp }"
     @select="closeMobileSearchBar"
@@ -50,7 +50,13 @@
           <v-list-item-avatar
             class="my-2"
           >
-            <v-img :src="suggestion.strMealThumb" />
+            <v-img :src="suggestion.strMealThumb">
+              <template v-slot:placeholder>
+                <v-skeleton-loader
+                  type="image"
+                />
+              </template>
+            </v-img>
           </v-list-item-avatar>
           <v-list-item-content
             class="py-0"
@@ -83,10 +89,10 @@ export default {
   computed: {
     search: {
       get () {
-        return this.$store.state.searchBar.search
+        return this.$store.state.search
       },
       set (value) {
-        this.$store.commit('searchBar/updateSearch', value)
+        this.$store.commit('updateSearch', value)
       }
     }
   },
@@ -102,8 +108,7 @@ export default {
       setTimeout(this.toggleMobileSearchBar, 400)
     },
     ...mapMutations({
-      toggleMobileSearchBar: 'searchBar/toggleMobileSearchBar',
-      updateSearch: 'searchBar/updateSearch'
+      toggleMobileSearchBar: 'toggleMobileSearchBar'
     })
   }
 }

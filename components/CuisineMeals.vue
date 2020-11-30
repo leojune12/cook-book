@@ -38,7 +38,7 @@
                   />
                 </template>
                 <v-card-title
-                  style="background-color: rgba(0,0,0,0.4); color: white; word-break: normal;"
+                  style="word-break: normal; color: white; background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, transparent 100%);"
                 >
                   {{ meal.strMeal }}
                 </v-card-title>

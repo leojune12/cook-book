@@ -129,7 +129,7 @@ export default {
       window.history.back()
     },
     ...mapMutations({
-      toggleMobileSearchBar: 'searchBar/toggleMobileSearchBar'
+      toggleMobileSearchBar: 'index.js/toggleMobileSearchBar'
     })
   }
 }
