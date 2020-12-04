@@ -9,7 +9,7 @@
     <v-card
       tile
     >
-      <transition name="scroll-y-transition">
+      <transition name="slide-y-transition">
         <ul
           v-show="isLinksVisible"
           class="pa-0 display-block"
@@ -85,7 +85,7 @@ export default {
     },
     openDrawer () {
       this.isDrawerOpen = true
-      setTimeout(this.showLinks, 350)
+      setTimeout(this.showLinks, 300)
     },
     closeDrawerFromLink () {
       setTimeout(this.closeDrawer, 300)
