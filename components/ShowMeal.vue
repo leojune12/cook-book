@@ -101,12 +101,12 @@
                     </v-btn>
                   </v-col>
                 </v-row>
-                <v-divider class="mb-3" />
+                <v-divider class="mb-5" />
                 <div
-                  class="grey--text text--darken-4"
+                  class="grey--text text--darken-4 mb-5"
                 >
                   <div
-                    class="text-h6 mb-5"
+                    class="text-h6 mb-3"
                   >
                     Ingredients
                   </div>
@@ -125,7 +125,7 @@
                         >
                           <template v-slot:activator="{ on, attrs }">
                             <v-btn
-                              color="green darken-2"
+                              color="amber darken-4"
                               v-bind="attrs"
                               text
                               v-on="on"
@@ -169,7 +169,7 @@
                 <div
                   class="grey--text text--darken-4"
                 >
-                  <blockquote
+                  <!--<blockquote
                     class="text-justify"
                     style="white-space:pre-line;"
                   >
@@ -179,7 +179,83 @@
                       Instructions
                     </div>
                     {{ meal.strInstructions }}
-                  </blockquote>
+                  </blockquote>-->
+                  <!--<v-list
+                    v-model="list"
+                  >
+                    <v-list-item-group
+                      multiple
+                    >
+                      <template v-for="(instruction, i) in instructions">
+                        <v-divider
+                          v-if="!instruction"
+                          :key="`divider-${i}`"
+                        ></v-divider>
+
+                        <v-list-item
+                          v-else
+                          :key="`item-${i}`"
+                          :value="instruction"
+                          active-class="deep-purple&#45;&#45;text text&#45;&#45;accent-4"
+                        >
+                          <template v-slot:default="{ active }">
+                            <v-list-item-content>
+                              <v-list-item-title v-text="instruction"></v-list-item-title>
+                            </v-list-item-content>
+
+                            <v-list-item-action>
+                              <v-checkbox
+                                :input-value="active"
+                                color="deep-purple accent-4"
+                              ></v-checkbox>
+                            </v-list-item-action>
+                          </template>
+                        </v-list-item>
+                      </template>
+                    </v-list-item-group>
+                  </v-list>-->
+                  <div
+                    class="text-h6 mb-3"
+                  >
+                    Instructions
+                  </div>
+                  <v-item-group multiple>
+                    <v-container
+                      fluid
+                      class="pa-0"
+                    >
+                      <v-row
+                        no-gutters
+                        justify="center"
+                        align="center"
+                      >
+                        <v-col
+                          v-for="(n, index) in instructions"
+                          :key="index"
+                          cols="12"
+                          :class="{ 'display-none':n.length === 0 || n === ' ' }"
+                        >
+                          <v-item v-slot="{ active, toggle }">
+                            <div
+                              class="d-flex"
+                            >
+                              <v-checkbox
+                                :input-value="active"
+                                color="green darken-2"
+                                hide-details
+                                class="mt-0"
+                                @click="toggle"
+                              ></v-checkbox>
+                              <span
+                                class="mb-3 mt-1"
+                                :class="{ 'green--text text--darken-2' : active }"
+                              >{{ n }}</span>
+                            </div>
+                          </v-item>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-item-group>
                 </div>
               </div>
             </v-skeleton-loader>
@@ -201,7 +277,9 @@ export default {
   data () {
     return {
       loading: true,
-      ingredientPopover: false
+      ingredientPopover: false,
+      instructions: [],
+      list: true
     }
   },
   computed: {
@@ -215,7 +293,12 @@ export default {
   },
   watch: {
     meal () {
-      this.loading = Object.keys(this.meal).length === 0
+      if (Object.keys(this.meal).length !== 0) {
+        this.loading = false
+        this.instructions = this.meal.strInstructions.split('\r\n')
+      } else {
+        this.loading = true
+      }
     }
   },
   methods: {
@@ -267,5 +350,8 @@ export default {
   .meal-description {
     height: 100vh;
     overflow-y: auto;
+  }
+  .display-none {
+    display: none;
   }
 </style>
