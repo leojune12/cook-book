@@ -43,31 +43,29 @@
       @click:append="toggleMobileSearchBar"
     />
     <div slot="suggestion-item" slot-scope="{ suggestion }">
-      <NuxtLink
-        :to="'/meal/' + suggestion.idMeal"
+      <v-list-item
+        @click="fetchMealToShow(suggestion.idMeal)"
       >
-        <v-list-item>
-          <v-list-item-avatar
-            class="my-2"
-          >
-            <v-img :src="suggestion.strMealThumb">
-              <template v-slot:placeholder>
-                <v-skeleton-loader
-                  type="image"
-                />
-              </template>
-            </v-img>
-          </v-list-item-avatar>
-          <v-list-item-content
-            class="py-0"
-          >
-            <v-list-item-title v-text="suggestion.strMeal" />
-            <v-list-item-subtitle>
-              <span>{{ suggestion.strCategory }} &bullet; {{ suggestion.strArea }}</span>
-            </v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-      </NuxtLink>
+        <v-list-item-avatar
+          class="my-2"
+        >
+          <v-img :src="suggestion.strMealThumb">
+            <template v-slot:placeholder>
+              <v-skeleton-loader
+                type="image"
+              />
+            </template>
+          </v-img>
+        </v-list-item-avatar>
+        <v-list-item-content
+          class="py-0"
+        >
+          <v-list-item-title v-text="suggestion.strMeal" />
+          <v-list-item-subtitle>
+            <span>{{ suggestion.strCategory }} &bullet; {{ suggestion.strArea }}</span>
+          </v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
     </div>
   </vue-simple-suggest>
 </template>
@@ -83,7 +81,8 @@ export default {
   },
   data () {
     return {
-      searchPlaceholder: 'Search recipe by name'
+      searchPlaceholder: 'Search recipe by name',
+      meal: {}
     }
   },
   computed: {
@@ -97,6 +96,11 @@ export default {
     }
   },
   methods: {
+    ...mapMutations([
+      'toggleMobileSearchBar',
+      'toggleMealDialog',
+      'setMealToShow'
+    ]),
     async fetchMeals () {
       return (await this.$axios.get('https://www.themealdb.com/api/json/v1/1/search.php?s=' + this.search)).data.meals
     },
@@ -107,9 +111,14 @@ export default {
       }
       setTimeout(this.toggleMobileSearchBar, 400)
     },
-    ...mapMutations({
-      toggleMobileSearchBar: 'toggleMobileSearchBar'
-    })
+    async fetchMealToShow (mealId) {
+      this.toggleMealDialog()
+      this.meal = (await this.$axios.get('https://www.themealdb.com/api/json/v1/1/lookup.php?i=' + mealId)).data.meals[0]
+      this.openMealDialog()
+    },
+    openMealDialog () {
+      this.setMealToShow(this.meal)
+    }
   }
 }
 </script>

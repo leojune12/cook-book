@@ -114,14 +114,18 @@ import { mapMutations } from 'vuex'
 export default {
   layout: 'CustomLayout',
   name: 'Id',
-  async fetch () {
-    this.meal = (await this.$axios.get('https://www.themealdb.com/api/json/v1/1/lookup.php?i=' + this.$route.params.id)).data.meals[0]
-    this.loading = false
-  },
   data () {
     return {
       meal: {},
+      meals: null,
       loading: true
+    }
+  },
+  beforeMount () {
+    if (this.$route.params.id) {
+      this.fetchMeals()
+    } else {
+      this.$router.push('/categories')
     }
   },
   methods: {
@@ -130,7 +134,16 @@ export default {
     },
     ...mapMutations({
       toggleMobileSearchBar: 'index.js/toggleMobileSearchBar'
-    })
+    }),
+    async fetchMeals () {
+      this.meals = (await this.$axios.get('https://www.themealdb.com/api/json/v1/1/lookup.php?i=' + this.$route.params.id)).data.meals
+      if (this.meals !== null) {
+        this.meal = this.meals[0]
+      } else {
+        this.$router.push('/categories')
+      }
+      this.loading = false
+    }
   }
 }
 </script>

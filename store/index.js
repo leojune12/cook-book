@@ -19,20 +19,12 @@ export const state = () => ({
   ],
   mobileSearchBar: false,
   drawer: false,
-  search: ''
+  search: '',
+  mealDialog: false,
+  mealToShow: {}
 })
 
 export const mutations = {
-  // add (state, text) {
-  //   state.list.push({
-  //     text,
-  //     done: false,
-  //     id: Date.now()
-  //   })
-  // },
-  // remove (state, todo) {
-  //   state.list = state.list.filter(item => item.id !== todo.id)
-  // },
   toggleMobileSearchBar (state) {
     state.mobileSearchBar = !state.mobileSearchBar
     state.search = ''
@@ -42,5 +34,14 @@ export const mutations = {
   },
   updateSearch (state, text) {
     state.search = text
+  },
+  toggleMealDialog (state) {
+    state.mealDialog = !state.mealDialog
+  },
+  resetMealToShow (state) {
+    state.mealToShow = {}
+  },
+  setMealToShow (state, meal) {
+    state.mealToShow = meal
   }
 }

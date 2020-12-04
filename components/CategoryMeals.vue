@@ -23,28 +23,26 @@
           cols="12"
           md="4"
         >
-          <NuxtLink
-            :to="'/meal/' + meal.idMeal"
+          <v-card
+            @click="fetchMealToShow(meal.idMeal)"
           >
-            <v-card>
-              <v-img
-                class="align-end rounded"
-                :src="meal.strMealThumb"
-                height="200px"
+            <v-img
+              class="align-end rounded"
+              :src="meal.strMealThumb"
+              height="200px"
+            >
+              <template v-slot:placeholder>
+                <v-skeleton-loader
+                  type="image"
+                />
+              </template>
+              <v-card-title
+                class="card-title"
               >
-                <template v-slot:placeholder>
-                  <v-skeleton-loader
-                    type="image"
-                  />
-                </template>
-                <v-card-title
-                  style="word-break: normal; color: white; background: linear-gradient(0deg, rgba(0,0,0,0.6) 0%, transparent 100%);"
-                >
-                  {{ meal.strMeal }}
-                </v-card-title>
-              </v-img>
-            </v-card>
-          </NuxtLink>
+                {{ meal.strMeal }}
+              </v-card-title>
+            </v-img>
+          </v-card>
         </v-col>
       </v-row>
     </v-col>
@@ -52,6 +50,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 export default {
   name: 'CategoryMeals',
   props: {
@@ -73,8 +72,20 @@ export default {
     }
   },
   methods: {
+    ...mapMutations([
+      'toggleMealDialog',
+      'setMealToShow'
+    ]),
     async fetchMeals () {
       this.meals = (await this.$axios.get('https://www.themealdb.com/api/json/v1/1/filter.php?c=' + this.category)).data.meals
+    },
+    async fetchMealToShow (mealId) {
+      this.toggleMealDialog()
+      this.meal = (await this.$axios.get('https://www.themealdb.com/api/json/v1/1/lookup.php?i=' + mealId)).data.meals[0]
+      this.openMealDialog()
+    },
+    openMealDialog () {
+      this.setMealToShow(this.meal)
     }
   }
 }
@@ -83,5 +94,10 @@ export default {
 <style scoped>
   a {
     text-decoration: none;
+  }
+  .card-title {
+    word-break: normal;
+    color: white;
+    background: linear-gradient(0deg, rgba(0,0,0,0.6) 0%, transparent 100%);
   }
 </style>

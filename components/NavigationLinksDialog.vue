@@ -4,8 +4,7 @@
     light
     fullscreen
     hide-overlay
-    transition="scale-transition"
-    origin="top left"
+    transition="slide-y-transition"
   >
     <v-card
       tile

@@ -10,7 +10,7 @@
       <v-btn
         v-if="!$vuetify.breakpoint.mdAndUp && !mobileSearchBar"
         icon
-        @click="drawer = true"
+        @click="toggleDrawer"
       >
         <v-icon>mdi-menu</v-icon>
       </v-btn>
@@ -47,13 +47,19 @@
       </v-btn>
       <NavigationLinksDialog />
     </v-app-bar>
-    <v-main
-      style="background-color: #ffffff"
-    >
+    <v-main>
       <v-container>
         <nuxt keep-alive />
       </v-container>
     </v-main>
+    <v-dialog
+      v-model="mealDialog"
+      fullscreen
+      hide-overlay
+      transition="slide-x-transition"
+    >
+      <ShowMeal :meal="mealToShow" />
+    </v-dialog>
   </v-app>
 </template>
 
@@ -62,14 +68,19 @@ import { mapMutations, mapState } from 'vuex'
 import CustomVueSimpleSuggest from '../components/CustomVueSimpleSuggest'
 import NavigationLinks from '../components/NavigationLinks'
 import NavigationLinksDialog from '../components/NavigationLinksDialog'
+import ShowMeal from '../components/ShowMeal'
 export default {
   name: 'CustomLayout',
   components: {
     CustomVueSimpleSuggest,
     NavigationLinks,
-    NavigationLinksDialog
+    NavigationLinksDialog,
+    ShowMeal
   },
   computed: {
+    ...mapState([
+      'headerLinks'
+    ]),
     mobileSearchBar () {
       return this.$store.state.mobileSearchBar
     },
@@ -81,15 +92,26 @@ export default {
         this.$store.commit('toggleDrawer')
       }
     },
-    ...mapState([
-      'headerLinks'
-    ])
+    mealDialog () {
+      return this.$store.state.mealDialog
+    },
+    mealToShow () {
+      return this.$store.state.mealToShow
+    }
+  },
+  watch: {
+    mealDialog () {
+      if (this.mealDialog === false) {
+        this.resetMealToShow()
+      }
+    }
   },
   methods: {
-    ...mapMutations({
-      toggleMobileSearchBar: 'toggleMobileSearchBar',
-      toggleDrawer: 'toggleDrawer'
-    })
+    ...mapMutations([
+      'toggleMobileSearchBar',
+      'toggleDrawer',
+      'resetMealToShow'
+    ])
   }
 }
 </script>
