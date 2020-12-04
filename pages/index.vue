@@ -9,12 +9,12 @@
         md="10"
       >
         <div
-          class="text-center px-3"
+          class="text-center"
         >
           <v-img
-            class="mx-auto mb-6"
-            width="400"
-            height="254.78px"
+            class="mx-auto mb-3 mb-md-6"
+            height="230"
+            contain
             src="/images/ingredients.png"
             lazy-src="/images/ingredients.png"
           />

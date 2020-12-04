@@ -60,6 +60,21 @@
     >
       <ShowMeal :meal="mealToShow" />
     </v-dialog>
+    <v-fab-transition>
+      <v-btn
+        v-show="fab"
+        v-scroll="onScroll"
+        fab
+        dark
+        fixed
+        bottom
+        right
+        color="amber darken-4"
+        @click="toTop"
+      >
+        <v-icon>mdi-chevron-up</v-icon>
+      </v-btn>
+    </v-fab-transition>
   </v-app>
 </template>
 
@@ -76,6 +91,11 @@ export default {
     NavigationLinks,
     NavigationLinksDialog,
     ShowMeal
+  },
+  data () {
+    return {
+      fab: false
+    }
   },
   computed: {
     ...mapState([
@@ -111,7 +131,15 @@ export default {
       'toggleMobileSearchBar',
       'toggleDrawer',
       'resetMealToShow'
-    ])
+    ]),
+    onScroll (e) {
+      if (typeof window === 'undefined') { return }
+      const top = window.pageYOffset || e.target.scrollTop || 0
+      this.fab = top > 20
+    },
+    toTop () {
+      this.$vuetify.goTo(0)
+    }
   }
 }
 </script>

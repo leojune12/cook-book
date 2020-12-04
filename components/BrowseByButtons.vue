@@ -3,11 +3,12 @@
     <NuxtLink to="/categories">
       <v-btn
         class="mr-md-3 mb-3 mb-md-0 px-md-15"
-        color="#009135"
+        color="#F7761D"
         dark
         x-large
         :block="!$vuetify.breakpoint.mdAndUp"
         width="320"
+        outlined
       >
         Browse By Category
       </v-btn>
@@ -16,10 +17,11 @@
       <v-btn
         class="px-md-15"
         dark
-        color="#009135"
+        color="#F7761D"
         x-large
         :block="!$vuetify.breakpoint.mdAndUp"
         width="320"
+        outlined
       >
         Browse By Cuisine
       </v-btn>
