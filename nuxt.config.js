@@ -17,7 +17,7 @@ export default {
       { hid: 'description', name: 'description', content: 'Created using Nuxt.js which is a free and open source web application framework based on Vue.js' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon_.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
 
