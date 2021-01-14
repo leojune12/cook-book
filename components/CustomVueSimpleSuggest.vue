@@ -179,3 +179,13 @@ li {
     width: 100% !important;
   }
 </style>
+
+<style>
+  .vue-simple-suggest.designed .suggestions .suggest-item.hover {
+    background-color: lightgray !important;
+  }
+
+  .vue-simple-suggest.designed .suggestions .suggest-item.selected {
+    background-color: white !important;
+  }
+</style>
