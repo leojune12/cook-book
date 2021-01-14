@@ -5,8 +5,8 @@
         <logo />
       </div>
       <div class="text-h5 grey--text text--darken-4 text-center">
-        This recipe book app is created by <a href="https://github.com/leojune12?tab=repositories">Leo June</a> using <a href="https://nuxtjs.org/">Nuxt.js</a> which is a free and open source web application framework based on
-        <a href="https://vuejs.org/">Vue.js</a>. The API consumed by this application is available at <a href="https://www.themealdb.com/">TheMealDB</a>.
+        This <a href="https://github.com/leojune12/cook-book">recipe book</a> app is created using <a href="https://nuxtjs.org/">Nuxt.js</a> which is a free and open source web application framework based on
+        <a href="https://vuejs.org/">Vue.js</a>, and <a href="https://vuetifyjs.com/en/">Vuetify</a> for UI library. This application consumes API from <a href="https://www.themealdb.com/">TheMealDB</a>.
       </div>
     </v-col>
   </v-row>
